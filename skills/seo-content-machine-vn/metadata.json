@@ -1,0 +1,12 @@
+{
+  "version": "1.0.0",
+  "organization": "AI Content Vietnamese Skills",
+  "date": "April 2026",
+  "abstract": "Vietnamese SEO content engine for SERP analysis, SEO reverse engineering, strategy, outline generation, full article writing, metadata, CTA, internal link suggestions, and SEO QA for the Vietnam market.",
+  "references": [
+    "https://agentskills.io/specification",
+    "https://code.claude.com/docs/en/skills",
+    "https://developers.openai.com/codex/skills/",
+    "https://github.com/vercel-labs/agent-skills"
+  ]
+}

@@ -1,7 +1,11 @@
 ---
 name: seo-content-machine-vn
-description: Vietnamese SEO content engine for building SEO plans, reverse-engineering SERP patterns, defining content strategy, and writing full Vietnamese SEO articles from keyword, product, audience, and goal.
-argument-hint: '"keyword" "product" "target_customer" "goal"'
+description: Vietnamese SEO content engine for SERP analysis, SEO reverse engineering, content strategy, SEO outlines, full Vietnamese SEO articles, meta tags, CTA, and SEO QA. Use when writing or planning Vietnamese SEO content from keyword, product, audience, and goal.
+license: MIT
+compatibility: Works with Agent Skills compatible clients including Claude Code, Claude Desktop where skills are enabled, Codex, VS Code Copilot, Cursor, and other clients that read SKILL.md.
+metadata:
+  author: tuanhaviet22
+  version: "1.0.0"
 ---
 
 # SEO Content Machine VN
@@ -82,7 +86,7 @@ Output:
 - `SERP Pattern`
 - `SERP Risk`
 
-See `references/serp-analysis-framework.md` for deeper criteria when needed.
+See [SERP analysis framework](references/serp-analysis-framework.md) for deeper criteria when needed.
 
 ### 3. SEO Reverse Engineer
 
@@ -123,7 +127,7 @@ Output:
 - `Strategy`
 - `CTA Plan`
 
-See `references/content-strategy-framework.md` for strategy patterns.
+See [content strategy framework](references/content-strategy-framework.md) for strategy patterns.
 
 ### 5. Content Generation
 

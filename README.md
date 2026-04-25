@@ -2,15 +2,31 @@
 
 Repo này chứa các **Agent Skills cho content tiếng Việt**, tập trung vào SEO, content strategy, reverse SERP và viết bài có khả năng hỗ trợ chuyển đổi.
 
-Mục tiêu không phải tạo prompt rời rạc, mà là đóng gói các workflow thực chiến thành skill có cấu trúc rõ ràng, dễ cài, dễ sửa và dễ dùng lại trên nhiều AI coding/agent tool.
+Mục tiêu của repo không phải là lưu vài prompt rời rạc. Mục tiêu là đóng gói các workflow content thực chiến thành skill có cấu trúc chuẩn, có thể cài bằng Agent Skills CLI và dùng lại trên nhiều agent như Claude Code, Claude Desktop, Codex, VS Code Copilot, Cursor hoặc các client hỗ trợ chuẩn Agent Skills.
+
+## Cài Đặt Nhanh
+
+Cài toàn bộ skills trong repo bằng `npx`:
+
+```bash
+npx skills add tuanhaviet22/ai-content-vietnamese-skills
+```
+
+Nếu client hoặc CLI yêu cầu prefix GitHub:
+
+```bash
+npx skills add github:tuanhaviet22/ai-content-vietnamese-skills
+```
+
+Sau khi cài, agent tương thích sẽ tự phát hiện skill khi prompt khớp với description, hoặc bạn có thể gọi skill theo tên nếu client hỗ trợ slash command / skill mention.
 
 ## Skill Hiện Có
 
 ### `seo-content-machine-vn`
 
-Một SEO Content Engine cho thị trường Việt Nam.
+Vietnamese SEO Content Engine cho thị trường Việt Nam.
 
-Pipeline chính:
+Skill này biến input như keyword, sản phẩm, khách hàng mục tiêu và mục tiêu content thành một pipeline đầy đủ:
 
 ```text
 INPUT
@@ -22,7 +38,7 @@ INPUT
 -> FINAL OUTPUT
 ```
 
-Skill này nhận đầu vào như:
+Input mẫu:
 
 ```json
 {
@@ -54,34 +70,44 @@ Output gồm:
 
 ## Cấu Trúc Repo
 
+Repo dùng cấu trúc chuẩn kiểu `vercel-labs/agent-skills`: tất cả skill nằm trong thư mục `skills/`.
+
 ```text
 .
 ├── README.md
-└── seo-content-machine-vn/
-    ├── SKILL.md
-    ├── README.md
-    ├── examples/
-    │   ├── input-basic.md
-    │   ├── output-full-article.md
-    │   └── output-seo-plan.md
-    └── references/
-        ├── content-strategy-framework.md
-        ├── serp-analysis-framework.md
-        └── vietnamese-seo-guidelines.md
+├── LICENSE
+└── skills/
+    └── seo-content-machine-vn/
+        ├── SKILL.md
+        ├── README.md
+        ├── AGENTS.md
+        ├── metadata.json
+        ├── examples/
+        │   ├── input-basic.md
+        │   ├── output-full-article.md
+        │   └── output-seo-plan.md
+        └── references/
+            ├── content-strategy-framework.md
+            ├── serp-analysis-framework.md
+            └── vietnamese-seo-guidelines.md
 ```
 
-## Cài Đặt Cho Claude CLI / Claude Code
+## Dùng Với Claude Code / Claude CLI
 
-Claude Code hỗ trợ skills theo chuẩn `SKILL.md`.
+Cách khuyến nghị:
 
-Cài như personal skill để dùng ở mọi project:
+```bash
+npx skills add tuanhaviet22/ai-content-vietnamese-skills
+```
+
+Manual install nếu muốn copy trực tiếp:
 
 ```bash
 mkdir -p ~/.claude/skills
-cp -R seo-content-machine-vn ~/.claude/skills/seo-content-machine-vn
+cp -R skills/seo-content-machine-vn ~/.claude/skills/seo-content-machine-vn
 ```
 
-Sau đó có thể gọi trực tiếp:
+Gọi trực tiếp nếu client hỗ trợ slash command:
 
 ```text
 /seo-content-machine-vn "phan mem quan ly ban hang online" "SaaS quan ly don hang va ton kho" "chu shop online nho" "sales"
@@ -93,61 +119,63 @@ Hoặc hỏi tự nhiên:
 Viết bài SEO cho keyword "phần mềm quản lý bán hàng online" cho sản phẩm SaaS quản lý đơn hàng và tồn kho. Khách hàng là chủ shop online nhỏ, mục tiêu sales.
 ```
 
-Nếu muốn skill chỉ áp dụng cho một project, copy vào thư mục project:
-
-```bash
-mkdir -p .claude/skills
-cp -R seo-content-machine-vn .claude/skills/seo-content-machine-vn
-```
-
 ## Dùng Với Claude Desktop
 
-Claude Desktop không phải lúc nào cũng có cơ chế load skills giống Claude Code. Cách dùng phụ thuộc phiên bản và tính năng đang được bật.
+Nếu Claude Desktop của bạn hỗ trợ Agent Skills, cài bằng:
 
-Nếu Claude Desktop của bạn hỗ trợ Agent Skills:
+```bash
+npx skills add tuanhaviet22/ai-content-vietnamese-skills
+```
 
-1. Thêm folder `seo-content-machine-vn` vào khu vực skills theo hướng dẫn của Claude Desktop.
-2. Đảm bảo file entry là `SKILL.md`.
-3. Gọi skill bằng tên `seo-content-machine-vn` hoặc paste request phù hợp với description.
+Nếu chưa hỗ trợ cài skill trực tiếp, dùng repo này như prompt package:
 
-Nếu Claude Desktop chưa hỗ trợ skills trực tiếp, dùng như prompt package:
+1. Mở `skills/seo-content-machine-vn/SKILL.md`.
+2. Đưa nội dung vào project instructions hoặc conversation context.
+3. Khi cần context sâu hơn, thêm các file trong `references/`.
 
-1. Mở `seo-content-machine-vn/SKILL.md`.
-2. Paste nội dung vào project instructions hoặc conversation context.
-3. Khi cần chi tiết hơn, paste thêm file trong `references/`.
+## Dùng Với Codex
 
-## Dùng Với Codex / OpenAI Codex CLI
+Codex hỗ trợ Agent Skills và đọc skills từ `.agents/skills`, user skills hoặc plugin. Để cài nhanh qua Agent Skills CLI:
 
-Codex hiện không load Claude Skills native theo cùng cơ chế `~/.claude/skills`.
+```bash
+npx skills add tuanhaviet22/ai-content-vietnamese-skills
+```
 
-Cách dùng khuyến nghị:
+Manual install cho user scope:
 
-1. Dùng repo này như một **prompt/workflow package**.
-2. Đưa nội dung `seo-content-machine-vn/SKILL.md` vào instructions của Codex.
-3. Khi cần output chuẩn hơn, cung cấp thêm các file trong `references/` và `examples/`.
+```bash
+mkdir -p ~/.agents/skills
+cp -R skills/seo-content-machine-vn ~/.agents/skills/seo-content-machine-vn
+```
 
-Ví dụ prompt cho Codex:
+Manual install cho repo scope:
+
+```bash
+mkdir -p .agents/skills
+cp -R skills/seo-content-machine-vn .agents/skills/seo-content-machine-vn
+```
+
+Trong Codex, có thể gọi bằng skill mention nếu client hỗ trợ, hoặc prompt tự nhiên:
 
 ```text
-Use the workflow in seo-content-machine-vn/SKILL.md to create a Vietnamese SEO article.
+Use seo-content-machine-vn to create a Vietnamese SEO article.
 Keyword: phan mem quan ly ban hang online
 Product: SaaS quan ly don hang va ton kho cho shop online
 Target customer: chu shop online nho tai Viet Nam
 Goal: sales
 ```
 
-Nếu tool của bạn hỗ trợ custom instructions theo project, có thể trỏ hoặc copy nội dung `SKILL.md` vào phần đó.
-
 ## Development Workflow
 
 Khi phát triển skill mới:
 
-1. Tạo folder riêng cho từng skill.
+1. Tạo folder trong `skills/<skill-name>/`.
 2. Luôn có `SKILL.md` làm entry chính.
-3. Giữ `SKILL.md` gọn, tập trung vào điều phối workflow.
-4. Đưa framework dài vào `references/`.
-5. Đưa input/output mẫu vào `examples/`.
-6. Tránh tạo nhiều skill nhỏ nếu user thực tế cần một pipeline liền mạch.
+3. Đảm bảo `name` trong frontmatter khớp tên folder.
+4. Giữ `SKILL.md` gọn, tập trung vào điều phối workflow.
+5. Đưa framework dài vào `references/`.
+6. Đưa input/output mẫu vào `examples/`.
+7. Thêm `metadata.json` và `AGENTS.md` nếu skill cần phân phối rộng cho nhiều agent.
 
 ## Nguyên Tắc Thiết Kế
 
@@ -159,4 +187,4 @@ Khi phát triển skill mới:
 
 ## License
 
-Chưa khai báo license.
+MIT. Xem `LICENSE`.
